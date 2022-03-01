@@ -1,55 +1,59 @@
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
-
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
+const inputBox = document.querySelector(".inputField input");
+const addBtn = document.querySelector(".inputField button");
+const todoList = document.querySelector(".todoList");
+const deleteAllBtn = document.querySelector(".footer button");
+inputBox.onkeyup = ()=>{
+  let userEnteredValue = inputBox.value;
+  if(userEnteredValue.trim() != 0){ 
+    addBtn.classList.add("active"); 
+  }else{
+    addBtn.classList.remove("active"); 
   }
 }
-
-// Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
+showTasks(); 
+addBtn.onclick = ()=>{ 
+  let userEnteredValue = inputBox.value; 
+  let getLocalStorageData = localStorage.getItem("New Todo"); 
+  if(getLocalStorageData == null){ 
+    listArray = []; 
+  }else{
+    listArray = JSON.parse(getLocalStorageData);  
   }
-}, false);
-
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
+  listArray.push(userEnteredValue); 
+  localStorage.setItem("New Todo", JSON.stringify(listArray)); 
+  showTasks(); 
+  addBtn.classList.remove("active"); 
+}
+function showTasks(){
+  let getLocalStorageData = localStorage.getItem("New Todo");
+  if(getLocalStorageData == null){
+    listArray = [];
+  }else{
+    listArray = JSON.parse(getLocalStorageData); 
   }
-  document.getElementById("myInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
+  const pendingTasksNumb = document.querySelector(".pendingTasks");
+  pendingTasksNumb.textContent = listArray.length; 
+  if(listArray.length > 0){ 
+    deleteAllBtn.classList.add("active"); 
+  }else{
+    deleteAllBtn.classList.remove("active"); 
   }
+  let newLiTag = "";
+  listArray.forEach((element, index) => {
+    newLiTag += `<li>${element}<span class="icon" onclick="deleteTask(${index})"><i class="fas fa-trash"></i></span></li>`;
+  });
+  todoList.innerHTML = newLiTag; 
+  inputBox.value = ""; 
+}
+function deleteTask(index){
+  let getLocalStorageData = localStorage.getItem("New Todo");
+  listArray = JSON.parse(getLocalStorageData);
+  listArray.splice(index, 1); 
+  localStorage.setItem("New Todo", JSON.stringify(listArray));
+  showTasks(); 
+}
+deleteAllBtn.onclick = ()=>{
+  listArray = []; 
+  localStorage.setItem("New Todo", JSON.stringify(listArray)); 
+  showTasks(); 
 }

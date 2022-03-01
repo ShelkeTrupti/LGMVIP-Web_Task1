@@ -1,120 +1,131 @@
-/* Include the padding and border in an element's total width and height */
-* {
+*{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-
- }
-* {
-    background-image: url('img2.jpg' );
+    font-family: 'Poppins', sans-serif;
+  }
+  ::selection{
+    color: rgb(223, 233, 130);
+    background: rgb(22, 22, 59);
+  }
+  body{
+    background-image:url(img3.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position:center;
     background-size: cover;
   }
-   /* Remove margins and padding from the list */
- 
-  
-  /* Style the list items */
-  ul li {
-    cursor:default;
-    position: relative;
-    padding: 12px 8px 12px 40px;
-    background: #eee;
-    font-size: 18px;
-    transition: 0.2s;
-   
-  
-    /* make the list items unselectable */
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  .wrapper{
+    background: yellow;
+    max-width: 400px;
+    width: 100%;
+    margin: 120px auto;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
   }
-  
-  /* Set all odd list items to a different color (zebra-stripes) */
-  ul li:nth-child(odd) {
-    background: #f9f9f9;
-  }
-  
-  /* Darker background-color on hover */
-  ul li:hover {
-    background: #ddd;
-  }
-  
-  /* When clicked on, add a background color and strike out text */
-  ul li.checked {
-    background: #888;
-    color: #fff;
-    text-decoration: line-through;
-  }
-  
-  /* Add a "checked" mark when clicked on */
-  ul li.checked::before {
-    content: '';
-    position: static;
-    border-color: #fff;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;
-  }
-  
-  /* Style the close button */
-  .close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 12px 16px 12px 16px;
-    }
-  
-  .close:hover {
-    background-color: black;
-    color: white;
-  }
-
-  
-  /* Style the header */
-  .header {
-    background-color: black;
-    padding: 30px 40px;
-    color: black;
-    text-align: center;
+  .wrapper header{
+    font-size: 32px;
     font-weight: bolder;
   }
-  
-  /* Clear floats after the header */
-  .header:after {
-    content: "";
-    display: table;
-    clear: both;
+  .wrapper .inputField{
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    height: 45px;
   }
-  
-  /* Style the input */
-  input {
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    width: 75%;
-    padding: 10px;
-    float: left;
+  .inputField input{
+    width: 85%;
+    height: 100%;
+    outline: none;
+    border-radius: 3px;
+    border: 1px solid rgb(115, 165, 165);
     font-size: 17px;
-    color: white;
+    padding-left: 15px;
+    transition: all 0.3s ease;
   }
-  
-  /* Style the "Add" button */
-  .addBtn {
-    padding: 10px;
-    width: 25%;
-    background: #d9d9d9;
-    color: #555;
-    float: left;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bolder;
+  .inputField input:focus{
+    border-color: #3491e7;
+  }
+  .inputField button{
+    width: 50px;
+    height: 100%;
+    border: none;
+    color: rgb(204, 68, 75);
+    margin-left: 5px;
+    font-size: 22px;
+    outline: none;
+    background: #3437db;
     cursor: pointer;
-    transition: 0.3s;
-    border-radius: 0;
+    border-radius: 3px;
+    opacity: 0.6;
+    pointer-events: none;
+    transition: all 0.3s ease;
   }
-  
-  .addBtn:hover {
-    background-color:yellow;
+  .inputField button:hover,
+  .footer button:hover{
+    background: #840de6;
+  }
+  .inputField button.active{
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .wrapper .todoList{
+    max-height: 250px;
+    overflow-y: auto;
+  }
+  .todoList li{
+    position: relative;
+    list-style: none;
+    margin-bottom: 8px;
+    background: #e6e33a;
+    border-radius: 3px;
+    padding: 10px 15px;
+    cursor: default;
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+  .todoList li .icon{
+    position: absolute;
+    right: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #097005;
+    width: 45px;
+    text-align: center;
+    color: rgb(214, 226, 49);
+    padding: 10px 15px;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .todoList li:hover .icon{
+    right: 0px;
+  }
+  .wrapper .footer{
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer button{
+    padding: 6px 10px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    color:yellow;
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 5px;
+    background: red;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.6;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  .footer button.active{
+    opacity: 1;
+    pointer-events: auto;
   }
